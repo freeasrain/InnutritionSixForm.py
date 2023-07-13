@@ -1,0 +1,46 @@
+from itertools import product
+ 
+# 营养不良风险评估表
+a = [0,1,2]
+b = [0,1,2,3]
+c = [0,1,2]
+d = [0,2]
+e = [0,1,2]
+f1 = [0,1,2,3]
+f2 = [0,3]
+# 问题 6 不选“不能取得”时：f1 = [0,1,2,3]
+# 问题 6 选择“不能取得”时：f2 = [0,3]
+ 
+# 0 低风险：正常营养状况，总分 12-14 分
+# 1 中风险：有营养不良的风险，总分 8-11 分
+# 2 高风险：营养不良，总分 0-7 分
+ 
+for scoreGroup in product(a,b,c,d,e,f1):
+    if 12 <= sum(scoreGroup) <= 14:
+        grade = '低风险'
+    elif 8 <= sum(scoreGroup) <= 11:
+        grade = '中风险'
+    elif 0 <= sum(scoreGroup) <= 7:
+        grade = '高风险'
+    else:
+        grade = '其他等级'
+ 
+    with open('营养不良风险评估表（问题 6 不选“不能取得”）.csv', 'a+', encoding='utf-8', newline='') as csvf1:
+        print(grade,',',sum(scoreGroup),',',scoreGroup[0],',',scoreGroup[1],',',scoreGroup[2],',',scoreGroup[3],',',
+              scoreGroup[4],',','-',',',scoreGroup[5],file = csvf1)
+    csvf1.close
+ 
+for scoreGroup in product(a,b,c,d,e,f2):
+    if 12 <= sum(scoreGroup) <= 14:
+        grade = '低风险'
+    elif 8 <= sum(scoreGroup) <= 11:
+        grade = '中风险'
+    elif 0 <= sum(scoreGroup) <= 7:
+        grade = '高风险'
+    else:
+        grade = '其他等级'
+ 
+    with open('营养不良风险评估表（问题 6 选择“不能取得”）.csv', 'a+', encoding='utf-8', newline='') as csvf2:
+        print(grade,',',sum(scoreGroup),',',scoreGroup[0],',',scoreGroup[1],',',scoreGroup[2],',',scoreGroup[3],',',
+              scoreGroup[4],',','-',',',scoreGroup[5],file = csvf2)
+    csvf2.close
